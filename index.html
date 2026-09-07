@@ -664,23 +664,13 @@
     (function () {
       'use strict';
 
-      /* Navbar scroll */
+      /* DOM hooks (declared first, before any scroll handler runs) */
       var navbar = document.getElementById('navbar');
-      function onScroll() {
-        navbar.classList.toggle('scrolled', window.scrollY > 24);
-        document.getElementById('toTop').classList.toggle('visible', window.scrollY > 600);
-        var h = document.documentElement;
-        var max = h.scrollHeight - h.clientHeight;
-        document.getElementById('progressBar').style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
-        updateActiveNav();
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-
-      /* Active nav highlight */
+      var toTop = document.getElementById('toTop');
+      var progressBar = document.getElementById('progressBar');
       var sections = document.querySelectorAll('section[id]');
       var navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a[href^="#"]');
-      var activeIds = { home: true };
+
       function updateActiveNav() {
         var pos = window.scrollY + 120;
         var current = 'home';
@@ -691,6 +681,18 @@
           link.classList.toggle('active', link.getAttribute('href') === '#' + current);
         });
       }
+
+      /* Navbar scroll */
+      function onScroll() {
+        navbar.classList.toggle('scrolled', window.scrollY > 24);
+        toTop.classList.toggle('visible', window.scrollY > 600);
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        progressBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        updateActiveNav();
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
       /* Mobile menu */
       var menuBtn = document.getElementById('menuBtn');
@@ -717,15 +719,16 @@
       var t2 = document.getElementById('themeToggleMobile');
       if (t2) t2.addEventListener('click', cycleTheme);
 
-      /* Reveal on scroll */
+      /* Reveal on scroll (opt-in: content is visible by default in CSS.
+         Only when the observer is set up do we enable the hide-then-reveal.) */
+      var revealObserver = null;
       function showAllReveals() {
         document.querySelectorAll('.reveal').forEach(function (el) {
           el.classList.add('visible');
           el.classList.add('never-visible');
-          revealObserver.unobserve(el);
+          if (revealObserver) revealObserver.unobserve(el);
         });
       }
-      var revealObserver = null;
       if ('IntersectionObserver' in window) {
         revealObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
@@ -735,11 +738,11 @@
             }
           });
         }, { threshold: 0.1, rootMargin: '0px 0px -24px 0px' });
-        document.querySelectorAll('.reveal').forEach(function (el) {
-          revealObserver.observe(el);
-        });
+        var reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(function (el) { revealObserver.observe(el); });
+        document.documentElement.classList.add('reveal-ready');
         /* Safety net: never leave content hidden */
-        window.setTimeout(showAllReveals, 2500);
+        window.setTimeout(showAllReveals, 4000);
         if (document.readyState === 'complete') showAllReveals();
         else window.addEventListener('load', showAllReveals);
       } else {
@@ -747,7 +750,7 @@
       }
 
       /* Back to top */
-      document.getElementById('toTop').addEventListener('click', function () {
+      toTop.addEventListener('click', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     })();
