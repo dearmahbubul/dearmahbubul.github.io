@@ -3,462 +3,744 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Mahbubul Alam — Senior Full-Stack Engineer. 7+ years building scalable web platforms, enterprise systems and AI-powered products.">
-  <meta name="theme-color" content="#06080d">
-  <title>Mahbubul Alam — Senior Full-Stack Engineer</title>
+  <meta name="description" content="Mahbubul Alam — AI-Native Full-Stack Engineer. 7+ years architecting enterprise SaaS, AI systems and cross-platform mobile apps.">
+  <meta name="theme-color" content="#04050c">
+  <meta property="og:title" content="Mahbubul Alam — AI-Native Full-Stack Engineer">
+  <meta property="og:description" content="Building scalable SaaS platforms, AI systems and cross-platform mobile apps with production-grade engineering.">
+  <meta property="og:type" content="profile">
+  <title>Mahbubul Alam — AI-Native Full-Stack Engineer</title>
+
+  <script>
+    /* ─── Theme system (runs before paint to avoid FOUC) ─── */
+    (function () {
+      var mode = localStorage.getItem('theme') || 'auto';
+      function resolve(m) {
+        return m === 'auto'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : m;
+      }
+      var root = document.documentElement;
+      root.setAttribute('data-mode', mode);
+      root.setAttribute('data-theme', resolve(mode));
+      var themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) {
+        themeColor.setAttribute('content', resolve(mode) === 'dark' ? '#04050c' : '#f6f7fc');
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if ((localStorage.getItem('theme') || 'auto') === 'auto') {
+          var resolved = resolve('auto');
+          root.setAttribute('data-theme', resolved);
+          var tc = document.querySelector('meta[name="theme-color"]');
+          if (tc) tc.setAttribute('content', resolved === 'dark' ? '#04050c' : '#f6f7fc');
+        }
+      });
+      window.setTheme = function (m) {
+        localStorage.setItem('theme', m);
+        root.setAttribute('data-mode', m);
+        root.setAttribute('data-theme', resolve(m));
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.setAttribute('content', resolve(m) === 'dark' ? '#04050c' : '#f6f7fc');
+      };
+    })();
+  </script>
+
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- Scroll progress -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ─── Navbar ─── -->
   <header class="navbar" id="navbar">
     <nav class="navbar-inner">
-      <a href="#home" class="logo">Barakah<span>.</span></a>
+      <a href="#home" class="logo" aria-label="Mahbubul Alam — home">
+        <span class="logo-mark">MA</span>
+        <span class="logo-text">mahbubul<span class="dot">.dev</span></span>
+      </a>
+
       <div class="nav-links" id="navLinks">
         <a href="#home" class="active">Home</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#architecture">Engineering</a>
-        <a href="#team">Team</a>
         <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Work</a>
         <a href="#contact">Contact</a>
       </div>
-      <div class="nav-cta">
-        <a href="https://wa.me/8801906043504" target="_blank" rel="noopener" class="btn-primary">Let's Talk</a>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Theme: Auto / Dark / Light">
+          <svg class="icon-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <svg class="icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="https://wa.me/8801906043504" target="_blank" rel="noopener" class="btn-glow">Hire Me</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+          <svg class="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
-      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
     </nav>
+
     <div class="mobile-menu" id="mobileMenu">
       <div class="mobile-menu-inner">
         <a href="#home" class="active">Home</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#architecture">Engineering</a>
-        <a href="#team">Team</a>
         <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Work</a>
         <a href="#contact">Contact</a>
-        <a href="https://wa.me/8801906043504" target="_blank" rel="noopener" class="btn-primary" style="margin-top:8px;justify-content:center;">Let's Talk</a>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 4px;">
+          <span class="section-label">Theme</span>
+          <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme">
+            <svg class="icon-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <svg class="icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+        <a href="https://wa.me/8801906043504" target="_blank" rel="noopener" class="btn-glow" style="margin:12px 16px 4px;justify-content:center;">Hire Me</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero / Profile Header -->
-  <section class="hero section-bg-dots" id="home">
-    <div class="container-x">
-      <div class="hero-inner">
-        <div class="hero-photo">
-          <img src="mahbubul.webp" alt="Mahbubul Alam — Senior Full-Stack Engineer">
+  <main>
+
+    <!-- ─── Hero ─── -->
+    <section class="hero" id="home">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+      <div class="hero-grid"></div>
+
+      <div class="container-x">
+        <div class="hero-inner">
+          <div>
+            <span class="hero-badge"><span class="badge-dot"></span> Open for remote roles & AI consulting</span>
+            <h1 class="hero-name">Mahbubul <span class="gradient-text">Alam</span></h1>
+            <p class="hero-hl">AI-Native Full-Stack Engineer</p>
+            <p class="hero-desc">
+              I architect <strong>scalable SaaS platforms</strong>, ship <strong>production AI systems</strong> and build
+              <strong>cross-platform apps</strong>. 7+ years across 15+ shipped products — RAG pipelines, LLM workflows,
+              microservices and event-driven architecture with Laravel, Node.js, Python & React Native.
+            </p>
+
+            <div class="hero-contact">
+              <span style="display:inline-flex;align-items:center;gap:7px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Sylhet, Bangladesh
+              </span>
+              <a href="mailto:mahbubulalam5676@gmail.com">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                mahbubulalam5676@gmail.com
+              </a>
+              <a href="https://wa.me/8801906043504" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                +880 1906 043504
+              </a>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#projects" class="btn-glow">View My Work</a>
+              <a href="https://github.com/dearmahbubul" target="_blank" rel="noopener" class="btn-ghost">
+                GitHub
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+
+            <div class="hero-socials">
+              <a href="https://github.com/dearmahbubul" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+              <a href="https://www.linkedin.com/in/dearmahbubul" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+              <a href="https://www.facebook.com/dearmahbubul" target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            </div>
+          </div>
+
+          <!-- Terminal -->
+          <div class="terminal-wrap">
+            <div class="float-chip chip-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg> RAG</div>
+            <div class="float-chip chip-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> LLM</div>
+            <div class="float-chip chip-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.5 2.3 7.3-6.3-4.7-6.3 4.7 2.3-7.3-6-4.5h7.6z"/></svg> AI Agents</div>
+            <div class="float-chip chip-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7"/></svg> MCP</div>
+
+            <div class="terminal-card">
+              <div class="terminal-bar">
+                <span class="tb-dot tb-red"></span>
+                <span class="tb-dot tb-yellow"></span>
+                <span class="tb-dot tb-green"></span>
+                <span class="tb-title">mahbubul@portfolio: ~/engineer</span>
+              </div>
+              <div class="terminal-body">
+                <div class="t-line"><span class="t-prompt">➜</span><span class="t-cmd"> cat profile.json</span></div>
+                <div class="t-line"><span class="t-out">{</span></div>
+                <div class="t-line"><span class="t-out">&nbsp;&nbsp;"role":</span><span class="t-ok"> "AI-Native Full-Stack Engineer"</span><span class="t-out">,</span></div>
+                <div class="t-line"><span class="t-out">&nbsp;&nbsp;"experience":</span><span class="t-accent"> "7+ years"</span><span class="t-out">,</span></div>
+                <div class="t-line"><span class="t-out">&nbsp;&nbsp;"aiStack": [</span><span class="t-ok">"RAG", "LLM", "Agents", "MCP"</span><span class="t-out">],</span></div>
+                <div class="t-line"><span class="t-out">&nbsp;&nbsp;"stack": [</span><span class="t-ok">"Laravel", "Node.js", "Python", "React Native"</span><span class="t-out">],</span></div>
+                <div class="t-line"><span class="t-out">&nbsp;&nbsp;"products":</span><span class="t-accent"> "15+ shipped"</span><span class="t-out">,</span></div>
+                <div class="t-line"><span class="t-out">&nbsp;&nbsp;"status":</span><span class="t-ok"> "available for remote"</span></div>
+                <div class="t-line"><span class="t-out">}</span></div>
+                <div class="t-line"><span class="t-prompt">➜</span><span class="t-cmd"> mahbubul deploy --prod</span><span class="t-cursor"></span></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="hero-info">
-          <div class="availability-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-            Open for remote roles & consulting
+      </div>
+    </section>
+
+    <!-- ─── Stats ─── -->
+    <div class="stats-strip">
+      <div class="container-x">
+        <div class="stats-inner">
+          <div class="stat reveal">
+            <span class="stat-value">7+</span>
+            <span class="stat-label">Years Engineering</span>
           </div>
-          <h1 class="hero-name">Mahbubul Alam</h1>
-          <p class="hero-role">Senior Full-Stack Engineer <span>@ Barakah Tech Zone</span></p>
-          <div class="hero-contact">
-            <span class="icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Sylhet, Bangladesh
-            </span>
-            <a href="mailto:mahbubulalam5676@gmail.com">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              mahbubulalam5676@gmail.com
-            </a>
-            <a href="https://wa.me/8801906043504" target="_blank" rel="noopener">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              +880 1906 043504
-            </a>
+          <div class="stat reveal">
+            <span class="stat-value">15+</span>
+            <span class="stat-label">Products Shipped</span>
           </div>
-          <div class="social-links">
-            <a href="https://github.com/dearmahbubul" target="_blank" rel="noopener" aria-label="GitHub">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/dearmahbubul" target="_blank" rel="noopener" aria-label="LinkedIn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/dearmahbubul" target="_blank" rel="noopener" aria-label="Facebook">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
+          <div class="stat reveal">
+            <span class="stat-value">35+</span>
+            <span class="stat-label">Repositories</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat-value">13+</span>
+            <span class="stat-label">Countries Served</span>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Stats -->
-  <section style="padding-bottom: 40px;">
-    <div class="container-x">
-      <div class="stats-grid">
-        <div class="stat-card surface">
-          <span class="stat-value">7+</span>
-          <span class="stat-label">Years Engineering</span>
-        </div>
-        <div class="stat-card surface">
-          <span class="stat-value">15+</span>
-          <span class="stat-label">Products Shipped</span>
-        </div>
-        <div class="stat-card surface">
-          <span class="stat-value">35+</span>
-          <span class="stat-label">Repositories</span>
-        </div>
-        <div class="stat-card surface">
-          <span class="stat-value">13+</span>
-          <span class="stat-label">Countries Served</span>
+    <!-- ─── About ─── -->
+    <section class="section" id="about">
+      <div class="container-x">
+        <div class="about-grid">
+          <div>
+            <span class="section-label reveal">About</span>
+            <h2 class="section-title reveal">Engineering for the <span class="gradient-text">AI era</span></h2>
+            <div class="about-text" style="margin-top:24px;">
+              <p class="reveal">
+                <strong>AI-Native Full-Stack Developer & Technical Lead</strong> with 7+ years of hands-on experience
+                architecting enterprise-grade SaaS platforms, AI systems and cross-platform mobile apps. I specialise in
+                scalable microservices, secure REST APIs and event-driven architecture across Laravel, Node.js, Python
+                and React Native — with applied AI delivery spanning <span class="gradient-text">RAG pipelines, LLM workflows and AI-powered automation</span>.
+              </p>
+              <p class="reveal">
+                I work the modern way: <strong>AI Agents, MCP servers and context engineering</strong> embedded into the
+                entire lifecycle — requirements analysis, technical planning, architecture, coding, testing and code
+                review. Production-minded by default with Docker workflows, optimised data layers and robust CI/CD.
+              </p>
+              <p class="reveal">
+                Available for global remote opportunities across any timezone.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="focus-grid">
+              <div class="focus-card reveal">
+                <div class="focus-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.5 2.3 7.3-6.3-4.7-6.3 4.7 2.3-7.3-6-4.5h7.6z"/></svg></div>
+                <div class="focus-title">AI Systems</div>
+                <div class="focus-desc">RAG, LLMs, AI agents, embeddings & vector databases in production.</div>
+              </div>
+              <div class="focus-card reveal">
+                <div class="focus-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                <div class="focus-title">SaaS Platforms</div>
+                <div class="focus-desc">Multi-tenant, subscription-billed products built to scale.</div>
+              </div>
+              <div class="focus-card reveal">
+                <div class="focus-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                <div class="focus-title">Mobile Apps</div>
+                <div class="focus-desc">Cross-platform iOS & Android with React Native (Expo).</div>
+              </div>
+              <div class="focus-card reveal">
+                <div class="focus-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <div class="focus-title">Cloud & DevOps</div>
+                <div class="focus-desc">Docker, Kubernetes, AWS, CI/CD & observability-first delivery.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Profile & Experience -->
-  <section class="section" id="about">
-    <div class="container-x">
-      <div style="max-width:800px;display:flex;flex-direction:column;gap:48px;">
-
-        <!-- Profile -->
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <h2 class="section-title">Profile</h2>
-          <p class="profile-text">
-            <strong>Full-Stack Developer & Technical Lead</strong> with 7+ years of hands-on experience architecting enterprise-grade SaaS platforms, AI systems and cross-platform mobile apps. Specialized in scalable microservices, secure REST APIs and event-driven architecture across Laravel, Node.js, Python and React Native, with applied AI delivery spanning RAG pipelines, LLM workflows and AI-powered automation. Experienced in modern AI-native development using <strong>AI Agents, MCP servers, Context Engineering</strong> and AI-assisted workflows for requirements analysis, technical planning, architecture, coding, testing and code review. Production-minded by default: Docker workflows, optimized SQL / NoSQL / Vector data layers and robust CI/CD pipelines for products like Matchable, SalesPype and LuxiWorld. Available for global remote opportunities across any timezone.
-          </p>
+    <!-- ─── Experience ─── -->
+    <section class="section" id="experience" style="background:var(--bg-soft);">
+      <div class="container-x">
+        <div class="section-head">
+          <span class="section-label reveal">Career</span>
+          <h2 class="section-title reveal">Work <span class="gradient-text">experience</span></h2>
+          <p class="section-sub reveal">Four roles across remote-first companies and on-site teams — from engineering to technical leadership.</p>
         </div>
 
-        <!-- Experience -->
-        <div style="display:flex;flex-direction:column;gap:24px;">
-          <h2 class="section-title">Experience</h2>
-          <div class="exp-list">
+        <div class="exp-list">
 
-            <div class="exp-item">
-              <div class="exp-line"></div>
-              <div class="exp-dot"></div>
-              <div class="exp-content">
-                <span class="exp-period">Jan 2025 — Present · 1 yr 8 mos</span>
-                <h3 class="exp-title">Senior Full-Stack Engineer</h3>
-                <span class="exp-meta">Barakah Tech Zone · Full-time · Sylhet, Bangladesh · Remote</span>
-                <ul class="exp-points">
-                  <li class="exp-point">Directed end-to-end technical strategy for a digital agency — leading cross-functional teams to deliver complex client solutions across multiple industries.</li>
-                  <li class="exp-point">Engineered high-volume e-commerce and web platforms (LuxiWorld) with custom storefronts, streamlined checkout, payment gateways and robust inventory management.</li>
-                  <li class="exp-point">Shipped cross-platform mobile apps and custom SaaS products — Gyfter, eTags and Socialmulli — ensuring high availability and seamless user experiences.</li>
-                  <li class="exp-point">Standardized Docker-based DevOps workflows and modular Laravel/Node.js + React/React Native architecture behind secure RESTful APIs.</li>
-                </ul>
+          <div class="exp-item reveal">
+            <div class="exp-rail"><span class="exp-dot"></span></div>
+            <div class="exp-content">
+              <span class="exp-period">Jan 2025 — Present</span>
+              <h3 class="exp-role">Senior Full-Stack Engineer</h3>
+              <div class="exp-meta">Digital Agency Lead · Remote · Sylhet, Bangladesh</div>
+              <ul class="exp-points">
+                <li class="exp-point">Direct end-to-end technical strategy for a digital agency — leading cross-functional teams delivering complex client solutions across industries.</li>
+                <li class="exp-point">Engineer high-volume e-commerce platforms with custom storefronts, streamlined checkout, payment gateways and inventory management.</li>
+                <li class="exp-point">Ship cross-platform mobile apps and SaaS products — Gyfter, eTags and Socialmulli — with high availability and seamless UX.</li>
+                <li class="exp-point">Standardise Docker-based DevOps and modular Laravel/Node.js + React/React Native architectures behind secure REST APIs.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="exp-item reveal">
+            <div class="exp-rail"><span class="exp-dot"></span></div>
+            <div class="exp-content">
+              <span class="exp-period">Aug 2023 — Dec 2024</span>
+              <h3 class="exp-role">Senior Full-Stack Engineer</h3>
+              <div class="exp-meta">Matchable · Remote · Dubai, UAE</div>
+              <ul class="exp-points">
+                <li class="exp-point">Implemented RAG with vector databases for high-precision candidate-job matching; integrated OpenAI and Claude for automated code generation and AI-driven search.</li>
+                <li class="exp-point">Built WebRTC video conferencing and Node.js/WebSocket chat; architected secure assessments with facial recognition and automated cheating detection.</li>
+                <li class="exp-point">Restructured a monolith into Domain-Driven Design, fully containerised with Docker.</li>
+                <li class="exp-point">Led sprints, code reviews and system architecture while running Laravel Horizon/Redis queues at high throughput.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="exp-item reveal">
+            <div class="exp-rail"><span class="exp-dot"></span></div>
+            <div class="exp-content">
+              <span class="exp-period">Aug 2021 — Jul 2023</span>
+              <h3 class="exp-role">Full-Stack Engineer</h3>
+              <div class="exp-meta">Innovation Place BD · On-site · Dhaka, Bangladesh</div>
+              <ul class="exp-points">
+                <li class="exp-point">Built complete Hospital Management Systems — electronic records, clinical scheduling, appointments and billing — plus an HR platform (HRMP).</li>
+                <li class="exp-point">Designed financial accounts tracking (AMS), inventory control (IMS) and custom ERP applications with SMS/MMS and banking modules.</li>
+                <li class="exp-point">Built scalable e-commerce platforms and custom CMS integrating digital signage, LED hardware and automated billboard tech.</li>
+                <li class="exp-point">Designed secure REST APIs for high-volume data with Laravel, Node.js, NestJS and React — deployed via Docker.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="exp-item reveal">
+            <div class="exp-rail"><span class="exp-dot"></span></div>
+            <div class="exp-content">
+              <span class="exp-period">Jun 2019 — Jul 2021</span>
+              <h3 class="exp-role">Junior Full-Stack Engineer</h3>
+              <div class="exp-meta">Orangetoolz · On-site · Dhaka, Bangladesh</div>
+              <ul class="exp-points">
+                <li class="exp-point">Architected and scaled SaaS products including SalesPype — multi-tenant CRM, automated gifting, mapping, HRM and e-commerce.</li>
+                <li class="exp-point">Engineered React Native mobile apps and high-performance REST APIs serving mobile and web clients.</li>
+                <li class="exp-point">Applied SOLID microservice decomposition with MySQL/MariaDB + MongoDB modelling, PHPUnit automation and Docker workflows.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Skills ─── -->
+    <section class="section" id="skills">
+      <div class="container-x">
+        <div class="section-head">
+          <span class="section-label reveal">Skills</span>
+          <h2 class="section-title reveal">Modern <span class="gradient-text">stack</span></h2>
+          <p class="section-sub reveal">A full-spectrum toolkit — from AI engineering to production infrastructure.</p>
+        </div>
+
+        <div class="skills-layout">
+          <div class="skills-list">
+
+            <div class="skill-group-card reveal">
+              <div class="skill-group-head">
+                <span class="skill-group-title">AI Engineering</span>
+                <span class="skill-group-count">09</span>
+              </div>
+              <div class="skill-chips">
+                <span class="skill-chip">OpenAI API</span><span class="skill-chip">LLM Integration</span><span class="skill-chip">AI Agents</span>
+                <span class="skill-chip">RAG Pipelines</span><span class="skill-chip">Context Engineering</span><span class="skill-chip">Prompt Engineering</span>
+                <span class="skill-chip">Embeddings</span><span class="skill-chip">Vector Databases</span><span class="skill-chip">AI-Powered Automation</span>
               </div>
             </div>
 
-            <div class="exp-item">
-              <div class="exp-line"></div>
-              <div class="exp-dot"></div>
-              <div class="exp-content">
-                <span class="exp-period">Aug 2023 — Dec 2024 · 1 yr 5 mos</span>
-                <h3 class="exp-title">Senior Full-Stack Engineer</h3>
-                <span class="exp-meta">Matchable · Full-time · Dubai, UAE · Remote</span>
-                <ul class="exp-points">
-                  <li class="exp-point">Implemented RAG with vector databases for high-precision candidate-job matching; integrated OpenAI Codex and Anthropic Claude for automated code generation and AI-driven search.</li>
-                  <li class="exp-point">Built WebRTC video conferencing and Node.js/WebSocket chat; architected secure assessments with facial recognition and automated cheating detection.</li>
-                  <li class="exp-point">Restructured a monolithic application into a Domain-Driven Design architecture, fully containerized with Docker.</li>
-                  <li class="exp-point">Led development sprints, code reviews and system architecture while running Laravel Horizon/Redis queues under high throughput.</li>
-                </ul>
+            <div class="skill-group-card reveal">
+              <div class="skill-group-head">
+                <span class="skill-group-title">Frontend</span>
+                <span class="skill-group-count">09</span>
+              </div>
+              <div class="skill-chips">
+                <span class="skill-chip">React</span><span class="skill-chip">Next.js</span><span class="skill-chip">Vue.js</span>
+                <span class="skill-chip">React Native (Expo)</span><span class="skill-chip">TypeScript</span><span class="skill-chip">Redux Toolkit</span>
+                <span class="skill-chip">Tailwind CSS</span><span class="skill-chip">SSR / SSG</span><span class="skill-chip">Inertia.js</span>
               </div>
             </div>
 
-            <div class="exp-item">
-              <div class="exp-line"></div>
-              <div class="exp-dot"></div>
-              <div class="exp-content">
-                <span class="exp-period">Aug 2021 — Jul 2023 · 2 yrs</span>
-                <h3 class="exp-title">Full-Stack Engineer</h3>
-                <span class="exp-meta">Innovation Place BD · Full-time · Mohakhali DOHS, Bangladesh · On-site</span>
-                <ul class="exp-points">
-                  <li class="exp-point">Built complete Hospital Management Systems — electronic patient records, clinical scheduling, appointments and billing — plus an HR management platform (HRMP) covering employee performance, time tracking and automated payroll.</li>
-                  <li class="exp-point">Designed financial accounts tracking (AMS), inventory control (IMS) and custom ERP applications managing stock, order fulfillment and large-scale operations with SMS/MMS and banking modules.</li>
-                  <li class="exp-point">Developed dynamic web applications, scalable e-commerce platforms and custom CMS solutions, integrating digital signage, LED display hardware and automated outdoor billboard technologies.</li>
-                  <li class="exp-point">Designed secure RESTful APIs processing high-volume operational data with Laravel, Node.js, NestJS and React — deployed via Docker for high availability.</li>
-                </ul>
+            <div class="skill-group-card reveal">
+              <div class="skill-group-head">
+                <span class="skill-group-title">Backend</span>
+                <span class="skill-group-count">09</span>
+              </div>
+              <div class="skill-chips">
+                <span class="skill-chip">PHP (Laravel)</span><span class="skill-chip">Node.js (Express, NestJS)</span><span class="skill-chip">Python</span>
+                <span class="skill-chip">REST APIs</span><span class="skill-chip">Auth & AuthZ</span><span class="skill-chip">WebSockets</span>
+                <span class="skill-chip">Background Jobs & Queues</span><span class="skill-chip">Third-Party APIs</span><span class="skill-chip">Payments</span>
               </div>
             </div>
 
-            <div class="exp-item">
-              <div class="exp-dot"></div>
-              <div class="exp-content">
-                <span class="exp-period">Jun 2019 — Jul 2021 · 2 yrs 2 mos</span>
-                <h3 class="exp-title">Junior Full-Stack Engineer</h3>
-                <span class="exp-meta">Orangetoolz · Full-time · Uttara, Dhaka, Bangladesh · On-site</span>
-                <ul class="exp-points">
-                  <li class="exp-point">Architected and scaled core SaaS products including SalesPype — multi-tenant CRMs, automated gift-sending, interactive mapping, HRM and e-commerce.</li>
-                  <li class="exp-point">Engineered React Native mobile apps and high-performance, secure RESTful APIs serving mobile and web clients.</li>
-                  <li class="exp-point">Applied SOLID microservice decomposition with MySQL/MariaDB + MongoDB data modeling, PHPUnit test automation and Docker-based workflows.</li>
-                </ul>
+            <div class="skill-group-card reveal">
+              <div class="skill-group-head">
+                <span class="skill-group-title">Data & Messaging</span>
+                <span class="skill-group-count">10</span>
+              </div>
+              <div class="skill-chips">
+                <span class="skill-chip">MySQL / MariaDB</span><span class="skill-chip">PostgreSQL</span><span class="skill-chip">MongoDB</span>
+                <span class="skill-chip">Redis</span><span class="skill-chip">RabbitMQ</span><span class="skill-chip">Kafka</span>
+                <span class="skill-chip">Database Design</span><span class="skill-chip">Query Optimisation</span><span class="skill-chip">Caching</span><span class="skill-chip">Real-Time Systems</span>
+              </div>
+            </div>
+
+            <div class="skill-group-card reveal">
+              <div class="skill-group-head">
+                <span class="skill-group-title">Cloud & DevOps</span>
+                <span class="skill-group-count">12</span>
+              </div>
+              <div class="skill-chips">
+                <span class="skill-chip">Docker</span><span class="skill-chip">Docker Compose</span><span class="skill-chip">Kubernetes</span>
+                <span class="skill-chip">AWS</span><span class="skill-chip">DigitalOcean</span><span class="skill-chip">EC2</span>
+                <span class="skill-chip">Nginx</span><span class="skill-chip">Linux</span><span class="skill-chip">CI/CD</span><span class="skill-chip">GitHub Actions</span><span class="skill-chip">SSL / TLS</span><span class="skill-chip">Monitoring & Logging</span>
               </div>
             </div>
 
           </div>
+
+          <!-- AI card -->
+          <aside class="ai-card reveal">
+            <div class="ai-card-head">
+              <span class="ai-card-title">AI-Native Workflow</span>
+              <span class="ai-live">Live</span>
+            </div>
+            <p class="about-text" style="gap:8px;font-size:0.88rem;">
+              I embed AI into software delivery — not as a gimmick, but as engineering leverage across the whole lifecycle.
+            </p>
+            <div class="ai-skill-list">
+              <span class="ai-skill">Architecture — Domain-Driven Design & Microservices</span>
+              <span class="ai-skill">Event-Driven Architecture</span>
+              <span class="ai-skill">Multi-Tenancy</span>
+              <span class="ai-skill">Scalable API Design</span>
+              <span class="ai-skill">Clean Architecture & SOLID</span>
+              <span class="ai-skill">Caching Strategies</span>
+              <span class="ai-skill">Asynchronous Processing</span>
+              <span class="ai-skill">Fault Tolerance</span>
+              <span class="ai-skill">API Security</span>
+            </div>
+            <div class="ai-card-footer">
+              // Tools: LangChain · MCP · pgvector · Redis<br>
+              // Deliver: products that reason, not guess.
+            </div>
+          </aside>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Core Skills -->
-  <section class="section" id="services" style="padding-top:0;">
-    <div class="container-x">
-      <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:40px;">
-        <h2 class="section-title" style="margin-bottom:8px;">Core Skills</h2>
+    <!-- ─── Projects ─── -->
+    <section class="section" id="projects" style="background:var(--bg-soft);">
+      <div class="container-x">
+        <div class="section-head">
+          <span class="section-label reveal">Work</span>
+          <h2 class="section-title reveal">Selected <span class="gradient-text">projects</span></h2>
+          <p class="section-sub reveal">A few products I've architected and shipped — from AI-powered matching to enterprise field service.</p>
+        </div>
 
-        <div class="skill-group">
-          <span class="skill-group-label">Frontend</span>
-          <div class="skill-chips">
-            <span class="skill-chip">React</span><span class="skill-chip">Next.js</span><span class="skill-chip">Vue.js</span>
-            <span class="skill-chip">React Native (Expo)</span><span class="skill-chip">TypeScript</span><span class="skill-chip">Redux Toolkit</span>
-            <span class="skill-chip">Tailwind CSS</span><span class="skill-chip">SSR / SSG</span><span class="skill-chip">Inertia.js</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-group-label">Backend</span>
-          <div class="skill-chips">
-            <span class="skill-chip">PHP (Laravel)</span><span class="skill-chip">Node.js (Express, NestJS)</span><span class="skill-chip">Python</span>
-            <span class="skill-chip">REST APIs</span><span class="skill-chip">Authentication & Authorization</span><span class="skill-chip">WebSockets</span>
-            <span class="skill-chip">Background Jobs & Queues</span><span class="skill-chip">Third-Party API Integration</span><span class="skill-chip">Payment</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-group-label">Data & Messaging</span>
-          <div class="skill-chips">
-            <span class="skill-chip">MySQL / MariaDB</span><span class="skill-chip">PostgreSQL</span><span class="skill-chip">MongoDB</span>
-            <span class="skill-chip">Redis</span><span class="skill-chip">RabbitMQ</span><span class="skill-chip">Kafka</span>
-            <span class="skill-chip">Database Design</span><span class="skill-chip">Query Optimization</span><span class="skill-chip">Caching</span><span class="skill-chip">Real-Time Systems</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-group-label">AI Engineering</span>
-          <div class="skill-chips">
-            <span class="skill-chip">OpenAI API</span><span class="skill-chip">LLM Integration</span><span class="skill-chip">AI Agents</span>
-            <span class="skill-chip">RAG Pipelines</span><span class="skill-chip">Context Engineering</span><span class="skill-chip">Prompt Engineering</span>
-            <span class="skill-chip">Embeddings</span><span class="skill-chip">Vector Databases</span><span class="skill-chip">AI-Powered Automation</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <span class="skill-group-label">Cloud & DevOps</span>
-          <div class="skill-chips">
-            <span class="skill-chip">Docker</span><span class="skill-chip">Docker Compose</span><span class="skill-chip">Kubernetes</span>
-            <span class="skill-chip">AWS</span><span class="skill-chip">DigitalOcean</span><span class="skill-chip">EC2</span>
-            <span class="skill-chip">Nginx</span><span class="skill-chip">Linux</span><span class="skill-chip">CI/CD</span><span class="skill-chip">GitHub Actions</span><span class="skill-chip">SSL / TLS</span><span class="skill-chip">Monitoring & Logging</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Architecture & Practice -->
-  <section class="section" id="architecture" style="padding-top:0;">
-    <div class="container-x">
-      <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:40px;">
-        <h2 class="section-title" style="margin-bottom:8px;">Architecture & Practice</h2>
-        <div class="surface" style="padding:32px;">
-          <ul class="arch-list">
-            <li class="arch-item"><span class="arch-dot"></span>Domain-Driven Design</li>
-            <li class="arch-item"><span class="arch-dot"></span>Microservices</li>
-            <li class="arch-item"><span class="arch-dot"></span>Event-Driven Architecture</li>
-            <li class="arch-item"><span class="arch-dot"></span>Multi-Tenancy</li>
-            <li class="arch-item"><span class="arch-dot"></span>Scalable API Architecture</li>
-            <li class="arch-item"><span class="arch-dot"></span>Clean Architecture</li>
-            <li class="arch-item"><span class="arch-dot"></span>SOLID Principles</li>
-            <li class="arch-item"><span class="arch-dot"></span>Design Patterns</li>
-            <li class="arch-item"><span class="arch-dot"></span>Database Architecture</li>
-            <li class="arch-item"><span class="arch-dot"></span>Caching Strategies</li>
-            <li class="arch-item"><span class="arch-dot"></span>Asynchronous Processing</li>
-            <li class="arch-item"><span class="arch-dot"></span>Fault Tolerance</li>
-            <li class="arch-item"><span class="arch-dot"></span>API Security</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section class="section" id="team" style="padding-top:0;">
-    <div class="container-x">
-      <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:40px;">
-        <h2 class="section-title" style="margin-bottom:8px;">Education</h2>
-        <div class="surface" style="padding:32px;">
-          <div class="education-item">
-            <span class="education-title">B.E. Computer Engineering</span>
-            <span class="education-meta">Daffodil International University (DIU) · 2015 — 2019</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Selected Work / Projects -->
-  <section class="section grid-bg" id="projects" style="padding-top:0;">
-    <div class="container-x">
-      <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
-        <h2 class="section-title" style="margin-bottom:8px;">Selected Work</h2>
         <div class="projects-grid">
 
-          <div class="project-card surface">
-            <a href="https://www.myclassroom.com.bd/" target="_blank" rel="noopener">
-              <span class="project-category">LMS</span>
-              <span class="project-name">MyClassroom</span>
-              <p class="project-desc">A live learning platform combining real-time classes, assessments and course management for educational institutions.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://scholars-home.org/" target="_blank" rel="noopener">
-              <span class="project-category">LMS</span>
-              <span class="project-name">Scholars Home</span>
-              <p class="project-desc">An education management system covering admissions, academics, fees and communication for academic institutions.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://pypecrm.com/" target="_blank" rel="noopener">
-              <span class="project-category">CRM</span>
-              <span class="project-name">PypeCRM</span>
-              <p class="project-desc">A pipeline-focused CRM for managing leads, deals and customer relationships with automation at its core.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://salespype.com/" target="_blank" rel="noopener">
-              <span class="project-category">SaaS</span>
-              <span class="project-name">SalesPype</span>
-              <p class="project-desc">A multi-tenant sales acceleration product with subscription billing and team workspaces.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://chakrihub.ai/" target="_blank" rel="noopener">
-              <span class="project-category">HR Tech</span>
-              <span class="project-name">ChakriHub</span>
-              <p class="project-desc">A recruitment and job-matching platform connecting candidates and employers with intelligent matching.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://luxiworldbd.com/" target="_blank" rel="noopener">
-              <span class="project-category">E-Commerce</span>
-              <span class="project-name">Luxiworld</span>
-              <p class="project-desc">A premium commerce platform with catalog management, payments and reseller support.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://www.retailerbook.com" target="_blank" rel="noopener">
-              <span class="project-category">ERP</span>
-              <span class="project-name">RetailerBook</span>
-              <p class="project-desc">A retail management system covering inventory, sales and supplier operations for retailers.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
-          <div class="project-card surface">
-            <a href="https://www.tekumo.com/" target="_blank" rel="noopener">
-              <span class="project-category">Enterprise</span>
-              <span class="project-name">TekumoPro</span>
-              <p class="project-desc">An Uber-like field-service platform connecting businesses with local, skilled technicians.</p>
-              <span class="project-arrow">Visit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-            </a>
-          </div>
+          <a class="project-card reveal" href="https://www.myclassroom.com.bd/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">LMS</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">MyClassroom</h3>
+            <p class="project-desc">A live learning platform combining real-time classes, assessments and course management for educational institutions.</p>
+            <div class="project-tags"><span class="project-tag">WebSockets</span><span class="project-tag">Next.js</span><span class="project-tag">AWS</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://chakrihub.ai/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">HR Tech</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">ChakriHub</h3>
+            <p class="project-desc">A recruitment and job-matching platform connecting candidates and employers with AI-powered intelligent matching.</p>
+            <div class="project-tags"><span class="project-tag">AI Matching</span><span class="project-tag">Laravel</span><span class="project-tag">Redis</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://salespype.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">SaaS</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">SalesPype</h3>
+            <p class="project-desc">A multi-tenant sales acceleration product with subscription billing and team workspaces.</p>
+            <div class="project-tags"><span class="project-tag">Multi-tenant</span><span class="project-tag">Node.js</span><span class="project-tag">Next.js</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://www.tekumo.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">Enterprise</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">TekumoPro</h3>
+            <p class="project-desc">An Uber-like field-service platform connecting businesses with local, skilled technicians for onsite tech support.</p>
+            <div class="project-tags"><span class="project-tag">Real-time</span><span class="project-tag">Next.js</span><span class="project-tag">AI Dispatch</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://pypecrm.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">CRM</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">PypeCRM</h3>
+            <p class="project-desc">A pipeline-focused CRM for managing leads, deals and customer relationships with automation at its core.</p>
+            <div class="project-tags"><span class="project-tag">Automation</span><span class="project-tag">Laravel</span><span class="project-tag">WebSockets</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://luxiworldbd.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">E-Commerce</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">Luxiworld</h3>
+            <p class="project-desc">A premium commerce platform with catalog management, payments and reseller support.</p>
+            <div class="project-tags"><span class="project-tag">Caching-first</span><span class="project-tag">Payments</span><span class="project-tag">Next.js</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://www.retailerbook.com" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">ERP</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">RetailerBook</h3>
+            <p class="project-desc">A retail management system covering inventory, sales and supplier operations — with a React Native app in development.</p>
+            <div class="project-tags"><span class="project-tag">Inventory</span><span class="project-tag">Laravel</span><span class="project-tag">React Native</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://scholars-home.org/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">LMS</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">Scholars Home</h3>
+            <p class="project-desc">An education management system covering admissions, academics, fees and communication for institutions.</p>
+            <div class="project-tags"><span class="project-tag">DDD</span><span class="project-tag">MySQL</span><span class="project-tag">Docker</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://agronochain.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">Blockchain</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">Agronochain</h3>
+            <p class="project-desc">A blockchain-based agricultural supply-chain platform for traceability and trust across producers and buyers.</p>
+            <div class="project-tags"><span class="project-tag">Hyperledger</span><span class="project-tag">Node.js</span><span class="project-tag">PostgreSQL</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://socialmulli.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">SaaS</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">SocialMulli</h3>
+            <p class="project-desc">A marketing operations platform that keeps field representatives in front of the right opportunities.</p>
+            <div class="project-tags"><span class="project-tag">Dashboard-first</span><span class="project-tag">Node.js</span><span class="project-tag">Next.js</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://gyftter.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">SaaS</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">Gyftter</h3>
+            <p class="project-desc">A digital gifting and rewards platform for sending, managing and tracking gifts across contexts.</p>
+            <div class="project-tags"><span class="project-tag">Rewards</span><span class="project-tag">Node.js</span><span class="project-tag">Stripe</span></div>
+          </a>
+
+          <a class="project-card reveal" href="https://www.fmmethod.com/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-cat">LMS</span>
+              <span class="project-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+            </div>
+            <h3 class="project-name">FM Method</h3>
+            <p class="project-desc">A bilingual e-learning platform for recorded courses, enrollment and SSLCommerz payments.</p>
+            <div class="project-tags"><span class="project-tag">Next.js</span><span class="project-tag">SSLCommerz</span><span class="project-tag">Bilingual</span></div>
+          </a>
 
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Contact CTA -->
-  <section class="cta-section" id="contact">
-    <div class="container-x">
-      <div class="surface cta-card">
-        <p style="font-family:var(--font-display);font-size:1.25rem;font-weight:600;color:var(--color-ink);margin-bottom:16px;">Let's build something</p>
-        <a href="mailto:mahbubulalam5676@gmail.com" class="cta-email">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          mahbubulalam5676@gmail.com
-        </a>
+        <div style="text-align:center;margin-top:40px;" class="reveal">
+          <a href="https://github.com/dearmahbubul" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-flex;">View all on GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="site-footer">
+    <!-- ─── Contact ─── -->
+    <section class="contact-section" id="contact">
+      <div class="container-x">
+        <div class="cta-card reveal">
+          <span class="cta-eyebrow">Let's build something</span>
+          <h2 class="cta-title">Have a project in mind? Let's make it <span class="gradient-text">intelligent</span>.</h2>
+          <p class="cta-sub">I'm available for full-time remote roles, freelance projects and AI consulting — across any timezone.</p>
+          <div class="cta-actions">
+            <a href="mailto:mahbubulalam5676@gmail.com" class="btn-glow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email Me
+            </a>
+            <a href="https://wa.me/8801906043504" target="_blank" rel="noopener" class="btn-ghost">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
     <div class="container-x">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#" class="logo" style="font-size:1.25rem;">Barakah<span>.</span></a>
-          <p>Software Engineering & AI Solutions. We build scalable, intelligent and production-ready digital products — from SaaS to enterprise systems.</p>
-          <div class="footer-contact">
-            <a href="mailto:support@barakahtechzone.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> support@barakahtechzone.com</a>
-            <a href="mailto:barakahtechzone@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> barakahtechzone@gmail.com</a>
-            <a href="mailto:mahbubulalam5676@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> mahbubulalam5676@gmail.com</a>
-            <a href="https://wa.me/8801906043504" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> WhatsApp +8801906043504</a>
+          <a href="#home" class="logo" aria-label="Mahbubul Alam — home">
+            <span class="logo-mark">MA</span>
+            <span class="logo-text">mahbubul<span class="dot">.dev</span></span>
+          </a>
+          <p>AI-Native Full-Stack Engineer building scalable SaaS platforms, production AI systems and cross-platform mobile apps.</p>
+          <div class="footer-socials">
+            <a href="https://github.com/dearmahbubul" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+            <a href="https://www.linkedin.com/in/dearmahbubul" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+            <a href="https://www.facebook.com/dearmahbubul" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
           </div>
         </div>
+
         <div class="footer-col">
-          <h4>Navigation</h4>
+          <h4>Navigate</h4>
           <ul>
             <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#architecture">Engineering</a></li>
-            <li><a href="#team">Team</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Work</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
           <h4>Capabilities</h4>
           <ul>
-            <li>Software Engineering</li>
             <li>AI Engineering</li>
-            <li>SaaS</li>
-            <li>Enterprise Applications</li>
-            <li>Cloud</li>
+            <li>Full-Stack Development</li>
+            <li>SaaS Platforms</li>
+            <li>Mobile Apps</li>
+            <li>Cloud & DevOps</li>
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <p>&copy; 2026 Barakah Tech Zone. All rights reserved.</p>
-        <span class="footer-brand-name">Engineered for real-world complexity</span>
+        <span class="footer-copy">&copy; 2026 Mahbubul Alam. All rights reserved.</span>
+        <span class="footer-made">Engineered for the AI era</span>
       </div>
     </div>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ─── Scripts ─── -->
   <script>
-    const navbar = document.getElementById('navbar');
-    const handleScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 24);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    (function () {
+      'use strict';
 
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    let menuOpen = false;
-    menuBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      mobileMenu.classList.toggle('open', menuOpen);
-      menuBtn.innerHTML = menuOpen
-        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
-        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        menuOpen = false;
-        mobileMenu.classList.remove('open');
-        menuBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
-      });
-    });
+      /* Navbar scroll */
+      var navbar = document.getElementById('navbar');
+      function onScroll() {
+        navbar.classList.toggle('scrolled', window.scrollY > 24);
+        document.getElementById('toTop').classList.toggle('visible', window.scrollY > 600);
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        document.getElementById('progressBar').style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        updateActiveNav();
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = '#' + entry.target.id;
-          navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === id));
-        }
+      /* Active nav highlight */
+      var sections = document.querySelectorAll('section[id]');
+      var navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a[href^="#"]');
+      var activeIds = { home: true };
+      function updateActiveNav() {
+        var pos = window.scrollY + 120;
+        var current = 'home';
+        sections.forEach(function (s) {
+          if (pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight) current = s.id;
+        });
+        navLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+      }
+
+      /* Mobile menu */
+      var menuBtn = document.getElementById('menuBtn');
+      var menu = document.getElementById('mobileMenu');
+      function setMenu(open) {
+        menu.classList.toggle('open', open);
+        menuBtn.querySelector('.icon-menu').style.display = open ? 'none' : 'block';
+        menuBtn.querySelector('.icon-close').style.display = open ? 'block' : 'none';
+      }
+      menuBtn.addEventListener('click', function () {
+        setMenu(!menu.classList.contains('open'));
       });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-    sections.forEach(section => observer.observe(section));
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { setMenu(false); });
+      });
+
+      /* Theme toggle: cycles auto → dark → light */
+      function cycleTheme() {
+        var current = document.documentElement.getAttribute('data-mode');
+        var next = current === 'auto' ? 'dark' : current === 'dark' ? 'light' : 'auto';
+        window.setTheme(next);
+      }
+      document.getElementById('themeToggle').addEventListener('click', cycleTheme);
+      var t2 = document.getElementById('themeToggleMobile');
+      if (t2) t2.addEventListener('click', cycleTheme);
+
+      /* Reveal on scroll */
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      } else {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      /* Back to top */
+      document.getElementById('toTop').addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
   </script>
+
+  <noscript>
+    <style>.reveal { opacity: 1; transform: none; } .mobile-menu { max-height: none; opacity: 1; }</style>
+  </noscript>
 </body>
 </html>
