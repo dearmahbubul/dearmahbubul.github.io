@@ -1463,6 +1463,7 @@ html[data-mode="light"] .theme-toggle .icon-light {
   background: var(--surface);
   border: 1px solid var(--line-strong);
   color: var(--ink-soft);
+  box-shadow: 0 10px 30px -12px rgba(139, 92, 246, 0.4);
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);

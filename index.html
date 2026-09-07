@@ -693,7 +693,7 @@
       /* Navbar scroll */
       function onScroll() {
         navbar.classList.toggle('scrolled', window.scrollY > 24);
-        toTop.classList.toggle('visible', window.scrollY > 600);
+        toTop.classList.toggle('visible', window.scrollY > 300);
         var h = document.documentElement;
         var max = h.scrollHeight - h.clientHeight;
         progressBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
