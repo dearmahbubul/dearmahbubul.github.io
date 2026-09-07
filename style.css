@@ -8,6 +8,10 @@
 
 /* ─── Theme tokens: Dark (default) ─── */
 :root {
+  color-scheme: dark;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', 'SFMono-Regular', Menlo, monospace;
   --bg: #04050c;
   --bg-soft: #070a15;
   --surface: #0a0e1e;
@@ -39,6 +43,7 @@
 
 /* ─── Theme tokens: Light ─── */
 [data-theme="light"] {
+  color-scheme: light;
   --bg: #f6f7fc;
   --bg-soft: #edeff6;
   --surface: #ffffff;
@@ -121,11 +126,18 @@ button { font-family: inherit; }
 }
 
 .gradient-text {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--cyan);
+  font-weight: inherit;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 }
 
 .mono {
@@ -744,11 +756,17 @@ html[data-mode="light"] .theme-toggle .icon-light {
   font-size: 2.2rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--cyan);
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .stat-value {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 }
 
 .stat-label {
@@ -1471,14 +1489,22 @@ html[data-mode="light"] .theme-toggle .icon-light {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
   transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.reveal.visible {
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+html.js .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+html.js .reveal.never-visible {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

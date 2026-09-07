@@ -13,33 +13,35 @@
   <script>
     /* ─── Theme system (runs before paint to avoid FOUC) ─── */
     (function () {
-      var mode = localStorage.getItem('theme') || 'auto';
+      document.documentElement.classList.add('js');
+      function getStored() {
+        try { return localStorage.getItem('theme'); } catch (e) { return null; }
+      }
+      var mode = getStored() || 'auto';
       function resolve(m) {
         return m === 'auto'
           ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
           : m;
       }
-      var root = document.documentElement;
-      root.setAttribute('data-mode', mode);
-      root.setAttribute('data-theme', resolve(mode));
-      var themeColor = document.querySelector('meta[name="theme-color"]');
-      if (themeColor) {
-        themeColor.setAttribute('content', resolve(mode) === 'dark' ? '#04050c' : '#f6f7fc');
-      }
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
-        if ((localStorage.getItem('theme') || 'auto') === 'auto') {
-          var resolved = resolve('auto');
-          root.setAttribute('data-theme', resolved);
-          var tc = document.querySelector('meta[name="theme-color"]');
-          if (tc) tc.setAttribute('content', resolved === 'dark' ? '#04050c' : '#f6f7fc');
-        }
-      });
-      window.setTheme = function (m) {
-        localStorage.setItem('theme', m);
+      function paint(m) {
+        var r = resolve(m);
+        var root = document.documentElement;
         root.setAttribute('data-mode', m);
-        root.setAttribute('data-theme', resolve(m));
+        root.setAttribute('data-theme', r);
+        root.style.colorScheme = r;
         var tc = document.querySelector('meta[name="theme-color"]');
-        if (tc) tc.setAttribute('content', resolve(m) === 'dark' ? '#04050c' : '#f6f7fc');
+        if (tc) tc.setAttribute('content', r === 'dark' ? '#04050c' : '#f6f7fc');
+      }
+      paint(mode);
+      var mql = window.matchMedia('(prefers-color-scheme: dark)');
+      function onSystemChange() {
+        if ((getStored() || 'auto') === 'auto') paint('auto');
+      }
+      if (mql.addEventListener) mql.addEventListener('change', onSystemChange);
+      else if (mql.addListener) mql.addListener(onSystemChange);
+      window.setTheme = function (m) {
+        try { localStorage.setItem('theme', m); } catch (e) {}
+        paint(m);
       };
     })();
   </script>
@@ -716,18 +718,30 @@
       if (t2) t2.addEventListener('click', cycleTheme);
 
       /* Reveal on scroll */
+      function showAllReveals() {
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          el.classList.add('visible');
+          el.classList.add('never-visible');
+          revealObserver.unobserve(el);
+        });
+      }
+      var revealObserver = null;
       if ('IntersectionObserver' in window) {
-        var revealObserver = new IntersectionObserver(function (entries) {
+        revealObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
               revealObserver.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.1, rootMargin: '0px 0px -24px 0px' });
         document.querySelectorAll('.reveal').forEach(function (el) {
           revealObserver.observe(el);
         });
+        /* Safety net: never leave content hidden */
+        window.setTimeout(showAllReveals, 2500);
+        if (document.readyState === 'complete') showAllReveals();
+        else window.addEventListener('load', showAllReveals);
       } else {
         document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
       }
