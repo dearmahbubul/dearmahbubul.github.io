@@ -978,6 +978,79 @@ html[data-mode="light"] .theme-toggle .icon-light {
   box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
 }
 
+/* ─── Education ─── */
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edu-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 0.3s;
+}
+
+.edu-card:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+.edu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.edu-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.edu-degree {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.edu-org {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.edu-period {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .edu-card {
+    flex-wrap: wrap;
+  }
+  .edu-period {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 /* ─── Skills ─── */
 .skills-layout {
   display: grid;
@@ -1255,6 +1328,22 @@ html[data-mode="light"] .theme-toggle .icon-light {
   line-height: 1.7;
   color: var(--ink-soft);
   flex: 1;
+}
+
+.project-role {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--violet-soft);
+}
+
+.project-metric {
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--cyan-soft);
 }
 
 .project-tags {
