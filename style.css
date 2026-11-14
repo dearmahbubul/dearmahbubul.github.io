@@ -637,6 +637,31 @@ html[data-mode="light"] .theme-toggle .icon-light {
   position: relative;
 }
 
+.hero-portrait {
+  display: none;
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  padding: 2px;
+  background: var(--gradient);
+  box-shadow: 0 0 30px -8px rgba(139, 92, 246, 0.5);
+  z-index: 2;
+}
+
+.hero-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--term-bg);
+}
+
+@media (min-width: 960px) {
+  .hero-portrait { display: block; }
+}
+
 .terminal-card {
   position: relative;
   border-radius: 18px;
